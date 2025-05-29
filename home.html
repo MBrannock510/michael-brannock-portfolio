@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Michael Brannock | Aerospace Engineer</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: stretch;
+      justify-content: flex-start;
+      position: relative;
+      background: radial-gradient(circle at 30% 30%, #0f0c1b, #000000 60%),
+                  radial-gradient(circle at 70% 70%, #0e0b1f, transparent 60%),
+                  radial-gradient(circle at 50% 50%, #120f24, #000000 80%);
+      background-blend-mode: screen;
+      background-size: 200% 200%;
+      animation: nebulaPulse 20s ease-in-out infinite alternate;
+    }
+
+    @keyframes nebulaPulse {
+      0% {
+        background-position: 0% 0%;
+      }
+      100% {
+        background-position: 100% 100%;
+      }
+    }
+
+    .sidebar {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 40px 30px;
+      background-color: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(6px);
+      min-height: 100%;
+      width: 500px;
+      z-index: 2;
+    }
+
+    .sidebar-top {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: fadeInTop 1s ease-out forwards;
+      opacity: 0;
+    }
+
+    .site-title {
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: #cccccc;
+      max-width: 90%;
+    }
+
+    .nav-section {
+      margin-top: 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .animated-btn {
+      background-color: transparent;
+      border: none;
+      color: #ffffff;
+      padding: 14px 30px;
+      font-size: 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      opacity: 0;
+      transform: translateX(-100px);
+      transition: all 0.4s ease;
+      text-decoration: none;
+      min-width: 200px;
+      text-align: left;
+    }
+
+    .animated-btn:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(-80px);
+    }
+
+    .animated-btn.active {
+      background-color: rgba(255, 255, 255, 0.15);
+      font-weight: bold;
+    }
+
+    .button-footer {
+      font-size: 0.95rem;
+      color: #888;
+      font-style: italic;
+      text-align: left;
+      padding-top: 20px;
+    }
+
+    .headshot {
+      position: absolute;
+      top: 25%;
+      right: 60px;
+      transform: translateY(-50%);
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background-image: url('https://via.placeholder.com/450');
+      background-size: cover;
+      background-position: center;
+      border: none;
+      box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.04);
+      z-index: 1;
+      opacity: 0;
+      animation: fadeInRight 1.2s ease-out 0.5s forwards;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      z-index: 0;
+      opacity: 0;
+      animation: twinkle 2.5s ease-in-out infinite;
+      animation-delay: var(--twinkle-delay);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    @keyframes fadeInTop {
+      0% {
+        transform: translateY(-40px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInRight {
+      0% {
+        transform: translateX(80px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div>
+      <div class="sidebar-top">
+        <div class="site-title">Michael Brannock</div>
+        <div class="tagline">Aspiring Aerospace Engineer from Melbourne, Florida</div>
+      </div>
+      <div class="nav-section">
+        <a href="#" class="animated-btn active">Home</a>
+        <a href="about.html" class="animated-btn">About Me</a>
+        <a href="skills.html" class="animated-btn">Skills</a>
+        <a href="education.html" class="animated-btn">Education</a>
+        <a href="experience.html" class="animated-btn">Work / Experience</a>
+        <a href="projects.html" class="animated-btn">Portfolio</a>
+        <a href="contact.html" class="animated-btn">Contact</a>
+      </div>
+    </div>
+    <div class="button-footer">[Optional section for more info later]</div>
+  </div>
+
+  <div class="headshot"></div>
+
+  <script>
+    const starCount = 100;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
+      document.body.appendChild(star);
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const buttons = document.querySelectorAll(".animated-btn");
+      buttons.forEach((btn, index) => {
+        setTimeout(() => {
+          btn.style.opacity = "1";
+          btn.style.transform = "translateX(0)";
+        }, index * 150);
+      });
+    });
+  </script>
+</body>
+</html>

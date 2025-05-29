@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Michael Brannock - Experience</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      background: radial-gradient(circle at 30% 30%, #0f0c1b, #000000 60%),
+                  radial-gradient(circle at 70% 70%, #0e0b1f, transparent 60%),
+                  radial-gradient(circle at 50% 50%, #120f24, #000000 80%);
+      background-blend-mode: screen;
+      background-size: 200% 200%;
+      animation: nebulaPulse 20s ease-in-out infinite alternate;
+      padding-top: 80px;
+      position: relative;
+    }
+
+    @keyframes nebulaPulse {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    @keyframes fadeInTop {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: scale(0.95); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeInLeft {
+      0% { opacity: 0; transform: translateX(-30px); }
+      100% { opacity: 1; transform: translateX(0); }
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 2.5s ease-in-out infinite;
+      animation-delay: var(--twinkle-delay);
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(6px);
+      padding: 15px 40px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: fadeInTop 1.6s ease-out both;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 40px 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      animation: fadeIn 1.5s ease-out both;
+    }
+
+    .content-block {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 40px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateX(-30px);
+      animation: fadeInLeft 1.2s ease-out forwards;
+    }
+
+    .content-block:nth-of-type(2) {
+      animation-delay: 0.6s;
+    }
+
+    .content-block:nth-of-type(3) {
+      animation-delay: 1s;
+    }
+
+    .content-block h3 {
+      margin-bottom: 10px;
+      color: #f9a602;
+    }
+
+    .content-block ul {
+      padding-left: 20px;
+      list-style-type: disc;
+      color: #dddddd;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .content-block ul li {
+      margin-bottom: 12px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Michael Brannock</div>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="projects.html">Portfolio</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="experience">
+    <h2>Experience & Leadership</h2>
+
+    <div class="content-block">
+      <h3>Co-curricular Activities</h3>
+      <ul>
+        <li><strong>Head of Risk Management</strong> – Pi Kappa Alpha Fraternity (Aug 2023 – Dec 2023)<br>
+            Managed large-scale events ensuring safety and risk prevention.
+        </li>
+        <li><strong>Vice President of PR and Programming</strong> – Inter Fraternal Council (Aug 2023 – Dec 2024)<br>
+            Coordinated events and managed communications for 8 organizations with ~300 members.
+        </li>
+      </ul>
+    </div>
+
+    <div class="content-block">
+      <h3>Recent Work History</h3>
+      <ul>
+        <li><strong>Brannock and Shaw Properties</strong> (May 2024 – Aug 2024)<br>
+            Assisted with demolition, electrical installs, flooring, and drywall.
+        </li>
+        <li><strong>FedEx</strong> (May 2023 – Aug 2023)<br>
+            Prepared trucks, assisted warehouse operations, and handled unloading tasks.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Michael Brannock. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const starCount = 150;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
+      document.body.appendChild(star);
+    }
+  </script>
+</body>
+</html>

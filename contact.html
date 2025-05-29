@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Michael Brannock - Contact</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      background: radial-gradient(circle at 30% 30%, #0f0c1b, #000000 60%),
+                  radial-gradient(circle at 70% 70%, #0e0b1f, transparent 60%),
+                  radial-gradient(circle at 50% 50%, #120f24, #000000 80%);
+      background-blend-mode: screen;
+      background-size: 200% 200%;
+      animation: nebulaPulse 20s ease-in-out infinite alternate;
+      padding-top: 80px;
+      position: relative;
+    }
+
+    @keyframes nebulaPulse {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 2.5s ease-in-out infinite;
+      animation-delay: var(--twinkle-delay);
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(6px);
+      padding: 15px 40px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideDownFade 1s ease forwards;
+    }
+
+    @keyframes slideDownFade {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    section {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      margin: 40px auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .contact-box {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateX(-40px);
+      animation: fadeLeft 0.8s ease forwards;
+    }
+
+    .contact-box:nth-child(1) { animation-delay: 0.2s; }
+    .contact-box:nth-child(2) { animation-delay: 0.4s; }
+    .contact-box:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes fadeLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .contact-box p {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #dddddd;
+    }
+
+    .contact-box a {
+      color: #f9a602;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .social-links a {
+      font-size: 1.1rem;
+      color: #f9a602;
+      transition: transform 0.3s ease;
+    }
+
+    .social-links a:hover {
+      transform: scale(1.1);
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Michael Brannock</div>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="projects.html">Portfolio</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="contact">
+    <h2>Contact</h2>
+
+    <div class="contact-box">
+      <p>Phone: (814) 525-5373</p>
+    </div>
+
+    <div class="contact-box">
+      <p>Email: <a href="mailto:Mbrannock2022@my.fit.edu">Mbrannock2022@my.fit.edu</a></p>
+    </div>
+
+    <div class="contact-box">
+      <p>Connect with me:</p>
+      <div class="social-links">
+        <a href="#" target="_blank">LinkedIn</a>
+        <a href="#" target="_blank">Instagram</a>
+        <a href="#" target="_blank">Twitter</a>
+        <a href="#" target="_blank">Facebook</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Michael Brannock. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const starCount = 150;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
+      document.body.appendChild(star);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me | Michael Brannock</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      min-height: 100vh;
+      background: radial-gradient(circle at 30% 30%, #0f0c1b, #000000 60%),
+                  radial-gradient(circle at 70% 70%, #0e0b1f, transparent 60%),
+                  radial-gradient(circle at 50% 50%, #120f24, #000000 80%);
+      background-blend-mode: screen;
+      background-size: 200% 200%;
+      animation: nebulaPulse 20s ease-in-out infinite alternate;
+      position: relative;
+      padding-top: 80px;
+    }
+
+    @keyframes nebulaPulse {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 2.5s ease-in-out infinite;
+      animation-delay: var(--twinkle-delay);
+      z-index: 0;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; }
+      50% { opacity: 1; }
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(6px);
+      padding: 15px 40px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      animation: slideDownFade 1s ease forwards;
+    }
+
+    @keyframes slideDownFade {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #ffffff;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
+
+    nav ul li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
+
+    nav ul li a:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .about-container {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(6px);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    h2 {
+      text-align: center;
+      color: #ffffff;
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .about-container p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+      color: #dddddd;
+      opacity: 0;
+      transform: translateX(-40px);
+      animation: fadeLeft 0.8s ease forwards;
+    }
+
+    .about-container p:nth-of-type(1) { animation-delay: 0.2s; }
+    .about-container p:nth-of-type(2) { animation-delay: 0.4s; }
+    .about-container p:nth-of-type(3) { animation-delay: 0.6s; }
+    .about-container p:nth-of-type(4) { animation-delay: 0.8s; }
+    .about-container p:nth-of-type(5) { animation-delay: 1.0s; }
+    .about-container .signature    { animation-delay: 1.2s; }
+
+    @keyframes fadeLeft {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .signature {
+      text-align: right;
+      font-style: italic;
+      color: #bbbbbb;
+      margin-top: 30px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Michael Brannock</div>
+    <nav>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="education.html">Education</a></li>
+        <li><a href="skills.html">Skills</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="experience.html">Experience</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="about-container">
+    <h2>About Me</h2>
+    <p>
+      My name is Michael Brannock, and I am an Aerospace Engineering student at the Florida Institute of Technology. My journey in aerospace began with a deep fascination for flight and innovation—a passion that has driven me to explore and excel in both astronautical and aeronautical design.
+    </p>
+    <p>
+      Throughout my academic career, I have built a solid foundation in technical design and analysis through rigorous coursework and hands-on projects. Leading projects such as our Glider Design Project and Aircraft Design Final Project has honed my skills in 3D modeling, analytical calculations, and iterative design. These experiences have not only strengthened my technical abilities but have also refined my leadership and team management skills.
+    </p>
+    <p>
+      I am proficient in tools such as Siemens NX, MATLAB, and Microsoft Office, and I continually seek opportunities to expand my technical toolkit. My roles in leadership—ranging from managing risk and coordinating events to spearheading team projects—have further enhanced my communication, project management, and collaborative skills.
+    </p>
+    <p>
+      Beyond the technical and leadership aspects, I am driven by a relentless curiosity and a commitment to innovation. I am excited about the opportunity to contribute to groundbreaking aerospace projects and to continue growing both professionally and personally in this dynamic field.
+    </p>
+    <p>
+      Thank you for taking the time to learn more about me. I look forward to connecting with you and exploring how my background, skills, and passion can bring value to your team.
+    </p>
+    <p class="signature">
+      – Michael Brannock
+    </p>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Michael Brannock. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const starCount = 150;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
+      document.body.appendChild(star);
+    }
+  </script>
+</body>
+</html>
