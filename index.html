@@ -2,20 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Michael Brannock | Aerospace Engineer</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
       color: #fff;
-      height: 100vh;
-      overflow: hidden;
+      height: 100vh;                   /* desktop */
+      overflow: hidden;                /* desktop prevents scroll glow behind */
       display: flex;
       align-items: stretch;
       justify-content: flex-start;
@@ -28,10 +24,7 @@
       animation: nebulaPulse 20s ease-in-out infinite alternate;
     }
 
-    @keyframes nebulaPulse {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
+    @keyframes nebulaPulse { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
 
     .sidebar {
       display: flex;
@@ -41,7 +34,7 @@
       background-color: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(6px);
       min-height: 100%;
-      width: 500px;
+      width: clamp(320px, 36vw, 500px);   /* responsive width on desktop */
       z-index: 2;
     }
 
@@ -54,10 +47,11 @@
     }
 
     .site-title {
-      font-size: 3rem;
+      font-size: clamp(2rem, 3.2vw, 3rem);
       font-weight: bold;
       color: #ffffff;
-      white-space: nowrap;
+      white-space: normal; /* allow wrap */
+      line-height: 1.15;
     }
 
     .tagline {
@@ -135,26 +129,52 @@
       animation-delay: var(--twinkle-delay);
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
 
-    @keyframes fadeInTop {
-      0% { transform: translateY(-40px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
+    @keyframes fadeInTop { 0% { transform: translateY(-40px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+    @keyframes fadeInRight { 0% { transform: translateX(80px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
 
-    @keyframes fadeInRight {
-      0% { transform: translateX(80px); opacity: 0; }
-      100% { transform: translateX(0); opacity: 1; }
-    }
-
-
+    /* ===== Mobile tweaks ===== */
     @media (max-width: 768px) {
-      .headshot {
-        display: none;
+      /* Let the page scroll and fit small screens */
+      body {
+        height: auto;
+        min-height: 100vh;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        padding-bottom: env(safe-area-inset-bottom); /* iOS safe area */
       }
+
+      .sidebar {
+        width: 100%;
+        min-height: unset;             /* allow content height */
+        padding: 24px 16px;            /* tighter padding */
+        gap: 16px;
+      }
+
+      .sidebar-top { gap: 6px; }
+      .site-title { font-size: clamp(1.6rem, 7vw, 2.2rem); }
+      .tagline { font-size: 0.98rem; max-width: 100%; }
+
+      .nav-section {
+        margin-top: 20px;
+        gap: 12px;
+      }
+
+      .animated-btn {
+        padding: 12px 16px;
+        font-size: 1.05rem;
+        transform: none;               /* no off-canvas on load */
+        opacity: 1;                    /* visible immediately */
+        min-width: 0;
+        width: 100%;
+      }
+      /* Disable hover translation on touch */
+      .animated-btn:hover { transform: none; }
+
+      .button-footer { font-size: 0.9rem; padding-top: 10px; }
+
+      .headshot { display: none; }
     }
   </style>
 </head>
@@ -175,11 +195,14 @@
         <a href="contact.html" class="animated-btn">Contact</a>
       </div>
     </div>
+    <!-- Optional footer text slot -->
+    <!-- <div class="button-footer">[Optional section for more info later]</div> -->
   </div>
 
   <div class="headshot"></div>
 
   <script>
+    // Stars
     const starCount = 100;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -193,7 +216,10 @@
       document.body.appendChild(star);
     }
 
+    // Stagger-in animation for desktop only (mobile shows immediately)
+    const isMobile = matchMedia('(max-width: 768px)').matches;
     window.addEventListener("DOMContentLoaded", () => {
+      if (isMobile) return;
       const buttons = document.querySelectorAll(".animated-btn");
       buttons.forEach((btn, index) => {
         setTimeout(() => {

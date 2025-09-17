@@ -17,7 +17,7 @@
       background-blend-mode: screen;
       background-size: 200% 200%;
       animation: nebulaPulse 20s ease-in-out infinite alternate;
-      padding-top: 80px; /* room for fixed header */
+      padding-top: 80px; 
       position: relative;
     }
 
@@ -37,7 +37,6 @@
       z-index: 0;
     }
 
-    /* Header */
     header {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -53,7 +52,6 @@
 
     .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
 
-    /* Desktop nav */
     nav ul {
       display: flex;
       list-style: none;
@@ -70,7 +68,6 @@
     }
     nav ul li a:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-    /* Mobile hamburger (hidden on desktop) */
     .menu-toggle {
       display: none;
       border: none;
@@ -84,7 +81,6 @@
     }
     .menu-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
-    /* Content */
     .portfolio-container {
       position: relative;
       z-index: 1;
@@ -168,15 +164,12 @@
 
     footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #777; }
 
-    /* ===== MOBILE ONLY (<=768px) ===== */
     @media (max-width: 768px) {
-      /* Hamburger visible */
       .menu-toggle { display: inline-flex; }
 
-      /* Full-width dropdown below header */
       #primary-nav {
         position: fixed;
-        top: 64px;           /* just under header */
+        top: 64px;          
         left: 0; right: 0;
         width: 100vw;
         margin: 0;
@@ -187,23 +180,20 @@
         backdrop-filter: blur(10px);
         border-top: 1px solid rgba(255,255,255,0.08);
         box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-        max-height: 0;       /* collapsed */
+        max-height: 0;       
         overflow: hidden;
         transition: max-height 0.3s ease;
         z-index: 2000;
       }
       #primary-nav.open { max-height: 70vh; }
 
-      /* Ensure header spacing on mobile */
       body { padding-top: 80px; }
 
-      /* Bigger tap targets */
       #primary-nav li a {
         padding: 14px 16px;
         border-radius: 10px;
       }
 
-      /* Content spacing for small screens */
       .portfolio-container { padding: 24px 14px; margin: 24px auto; }
       h2 { font-size: 2rem; margin-bottom: 20px; }
 
@@ -286,7 +276,6 @@
 
 
   <script>
-    // Accordion toggles
     const toggles = document.querySelectorAll('.project-toggle');
     toggles.forEach(toggle => {
       toggle.addEventListener('click', () => {
@@ -296,7 +285,6 @@
       });
     });
 
-    // Stars
     const starCount = 150;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -310,7 +298,6 @@
       document.body.appendChild(star);
     }
 
-    // Mobile dropdown behavior (same pattern as other pages)
     const toggleBtn = document.querySelector('.menu-toggle');
     const navList = document.getElementById('primary-nav');
 
@@ -326,12 +313,10 @@
         e.stopPropagation();
       });
 
-      // Close when clicking a link
       navList.addEventListener('click', (e) => {
         if (e.target.tagName === 'A') closeMenu();
       });
 
-      // Close on outside click
       document.addEventListener('click', (e) => {
         if (navList.classList.contains('open') &&
             !navList.contains(e.target) &&
@@ -340,7 +325,6 @@
         }
       });
 
-      // Close on Escape
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navList.classList.contains('open')) closeMenu();
       });
