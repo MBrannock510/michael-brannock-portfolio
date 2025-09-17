@@ -10,8 +10,7 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       color: #fff;
-      height: 100vh;                   /* desktop */
-      overflow: hidden;                /* desktop prevents scroll glow behind */
+      min-height: 100vh;
       display: flex;
       align-items: stretch;
       justify-content: flex-start;
@@ -22,9 +21,13 @@
       background-blend-mode: screen;
       background-size: 200% 200%;
       animation: nebulaPulse 20s ease-in-out infinite alternate;
+      overflow: hidden; /* desktop */
     }
 
-    @keyframes nebulaPulse { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+    @keyframes nebulaPulse {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
 
     .sidebar {
       display: flex;
@@ -34,7 +37,7 @@
       background-color: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(6px);
       min-height: 100%;
-      width: clamp(320px, 36vw, 500px);   /* responsive width on desktop */
+      width: clamp(320px, 36vw, 500px);
       z-index: 2;
     }
 
@@ -50,8 +53,8 @@
       font-size: clamp(2rem, 3.2vw, 3rem);
       font-weight: bold;
       color: #ffffff;
-      white-space: normal; /* allow wrap */
-      line-height: 1.15;
+      white-space: normal;
+      line-height: 1.2;
     }
 
     .tagline {
@@ -130,49 +133,59 @@
     }
 
     @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-
     @keyframes fadeInTop { 0% { transform: translateY(-40px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
     @keyframes fadeInRight { 0% { transform: translateX(80px); opacity: 0; } 100% { transform: translateX(0); opacity: 1; } }
 
     /* ===== Mobile tweaks ===== */
     @media (max-width: 768px) {
-      /* Let the page scroll and fit small screens */
       body {
-        height: auto;
-        min-height: 100vh;
-        overflow: auto;
-        -webkit-overflow-scrolling: touch;
-        padding-bottom: env(safe-area-inset-bottom); /* iOS safe area */
+        flex-direction: column;   /* stack vertically */
+        align-items: center;
+        justify-content: flex-start;
+        overflow: auto;           /* allow scrolling */
+        padding: 20px;
       }
 
       .sidebar {
         width: 100%;
-        min-height: unset;             /* allow content height */
-        padding: 24px 16px;            /* tighter padding */
-        gap: 16px;
+        min-height: unset;
+        padding: 20px 16px;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
       }
 
-      .sidebar-top { gap: 6px; }
-      .site-title { font-size: clamp(1.6rem, 7vw, 2.2rem); }
-      .tagline { font-size: 0.98rem; max-width: 100%; }
+      .sidebar-top {
+        opacity: 1; /* visible immediately */
+        transform: none;
+      }
+
+      .site-title { font-size: 2rem; }
+      .tagline { font-size: 1rem; max-width: 100%; }
 
       .nav-section {
         margin-top: 20px;
         gap: 12px;
+        width: 100%;
+        align-items: center;
       }
 
       .animated-btn {
         padding: 12px 16px;
-        font-size: 1.05rem;
-        transform: none;               /* no off-canvas on load */
-        opacity: 1;                    /* visible immediately */
-        min-width: 0;
+        font-size: 1.1rem;
+        transform: none;
+        opacity: 1;
+        text-align: center;
         width: 100%;
+        max-width: 280px;
       }
-      /* Disable hover translation on touch */
+
       .animated-btn:hover { transform: none; }
 
-      .button-footer { font-size: 0.9rem; padding-top: 10px; }
+      .button-footer {
+        font-size: 0.9rem;
+        text-align: center;
+      }
 
       .headshot { display: none; }
     }
@@ -195,8 +208,6 @@
         <a href="contact.html" class="animated-btn">Contact</a>
       </div>
     </div>
-    <!-- Optional footer text slot -->
-    <!-- <div class="button-footer">[Optional section for more info later]</div> -->
   </div>
 
   <div class="headshot"></div>
@@ -216,7 +227,7 @@
       document.body.appendChild(star);
     }
 
-    // Stagger-in animation for desktop only (mobile shows immediately)
+    // Desktop staggered animation
     const isMobile = matchMedia('(max-width: 768px)').matches;
     window.addEventListener("DOMContentLoaded", () => {
       if (isMobile) return;
