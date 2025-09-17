@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Michael Brannock - Skills</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -30,25 +26,10 @@
       100% { background-position: 100% 100%; }
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-
-    @keyframes fadeInTop {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInCenter {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInLeft {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+    @keyframes fadeInTop { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInCenter { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
 
     .star {
       position: absolute;
@@ -60,32 +41,28 @@
       z-index: 0;
     }
 
+    /* Header */
     header {
       position: fixed;
-      top: 0;
-      width: 100%;
+      top: 0; left: 0; right: 0;
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(6px);
       padding: 15px 40px;
-      z-index: 10;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       animation: fadeInTop 2.2s ease-out;
     }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #ffffff;
-    }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
 
+    /* Desktop nav */
     nav ul {
       display: flex;
       list-style: none;
       gap: 20px;
     }
-
     nav ul li a {
       color: #ffffff;
       text-decoration: none;
@@ -93,12 +70,25 @@
       padding: 8px 12px;
       border-radius: 4px;
       transition: background 0.3s;
+      display: block;
     }
+    nav ul li a:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-    nav ul li a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    /* Mobile hamburger (hidden on desktop) */
+    .menu-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.8rem;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
     }
+    .menu-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
+    /* Skills content */
     .skills-container {
       position: relative;
       z-index: 1;
@@ -126,7 +116,6 @@
       transform: translateX(-30px);
       animation: fadeInLeft 1.8s ease forwards;
     }
-
     .content-block:nth-of-type(2) { animation-delay: 0.5s; }
     .content-block:nth-of-type(3) { animation-delay: 1.0s; }
     .content-block:nth-of-type(4) { animation-delay: 1.5s; }
@@ -138,31 +127,69 @@
       font-size: 1.5rem;
     }
 
-    .content-block ul {
-      padding-left: 20px;
-      list-style: disc;
+    .skill-item {
+      margin-bottom: 12px;
     }
-
-    .content-block li {
+    .skill-title {
       font-size: 1.1rem;
-      line-height: 1.6;
-      color: #dddddd;
-      margin-bottom: 8px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .skill-sub {
+      font-size: 0.95rem;
+      color: #bbbbbb;
+      margin-left: 12px;
+      line-height: 1.5;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #777;
+    footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #777; }
+
+    /* ===== MOBILE ONLY (<=768px) ===== */
+    @media (max-width: 768px) {
+      .menu-toggle { display: inline-flex; }
+
+      #primary-nav {
+        position: fixed;
+        top: 64px;
+        left: 0; right: 0;
+        width: 100vw;
+        margin: 0;
+        padding: 8px 12px 12px;
+        flex-direction: column;
+        gap: 8px;
+        background: rgba(5, 5, 10, 0.96);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 2000;
+      }
+      #primary-nav.open { max-height: 70vh; }
+
+      body { padding-top: 80px; }
+
+      #primary-nav li a {
+        padding: 14px 16px;
+        border-radius: 10px;
+      }
+
+      .skills-container { padding: 24px 14px; margin: 24px auto; }
+      h2 { font-size: 2rem; margin-bottom: 20px; }
+      .content-block { padding: 18px; }
+      .content-block h3 { font-size: 1.25rem; }
+      .skill-title { font-size: 1rem; }
+      .skill-sub { font-size: 0.9rem; margin-left: 8px; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Michael Brannock</div>
-    <nav>
-      <ul>
+    <nav aria-label="Primary">
+      <button class="menu-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">☰</button>
+      <ul id="primary-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="education.html">Education</a></li>
@@ -179,47 +206,77 @@
 
     <div class="content-block">
       <h3>Coding</h3>
-      <ul>
-        <li>MATLAB – Simulation, optimization, visualization</li>
-        <li>HTML/CSS – Responsive webpage design</li>
-        <li>LaTeX – Technical writing and documentation</li>
-      </ul>
+      <div class="skill-item">
+        <div class="skill-title">MATLAB</div>
+        <div class="skill-sub">Over the course of my Aerospace education MATLAB has become an integral part of many of my data analysis assignments. </div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">HTML/CSS</div>
+        <div class="skill-sub">On the side of my Aerospace education I have begun to familiarize myself with website design to not only further my own career but to assist family businesses in their online pressence.</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">LaTeX</div>
+        <div class="skill-sub">Technical writing and scientific documentation with professional formatting.</div>
+      </div>
     </div>
 
     <div class="content-block">
       <h3>Simulations</h3>
-      <ul>
-        <li>Aerodynamic modeling using Lifting Line and Vortex Panel Methods</li>
-        <li>Dynamic system modeling with Simulink</li>
-        <li>Finite Element Analysis (FEA) in MATLAB</li>
-      </ul>
+      <div class="skill-item">
+        <div class="skill-title">Aerodynamic Modeling</div>
+        <div class="skill-sub">As part of my Aeronautical concentration I have gained exeperience in many fundamental aerodynamic models such as Lifting Line Theory and the Vortex Panel Method.</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">Dynamic System Modeling</div>
+        <div class="skill-sub">Developed time-domain and frequency-domain system models in Simulink.</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">Finite Element Analysis (FEA)</div>
+        <div class="skill-sub">Structural and stress analysis using MATLAB implementations.</div>
+      </div>
     </div>
 
     <div class="content-block">
       <h3>Design</h3>
-      <ul>
-        <li>Aircraft and glider structural design</li>
-        <li>Control system layout and feedback integration</li>
-        <li>CAD modeling in Siemens NX and Inventor</li>
-      </ul>
+      <div class="skill-item">
+        <div class="skill-title">Aircraft and Glider Structures</div>
+        <div class="skill-sub">Hands-on design of wings, fuselages, and lightweight support structures.</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">Control Systems</div>
+        <div class="skill-sub">Layout and integration of feedback systems for stability and performance.</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">CAD Modeling</div>
+        <div class="skill-sub">3D part and assembly modeling in Siemens NX and Inventor.</div>
+      </div>
     </div>
 
     <div class="content-block">
       <h3>Other</h3>
-      <ul>
-        <li>Leadership & team coordination</li>
-        <li>Risk management & logistics</li>
-        <li>Technical report writing and presentation</li>
-        <li>Microsoft Office Suite (Word, Excel, PowerPoint)</li>
-      </ul>
+      <div class="skill-item">
+        <div class="skill-title">Leadership &amp; Team Coordination</div>
+        <div class="skill-sub">Throughout my time at Florida Tech I have undertaken many group assignments. I have always pushed myself to be someone others can look to for answers and to lead people in the right direction. I have been project manager for many projects including my current capstone design project.</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">Risk Management &amp; Logistics</div>
+        <div class="skill-sub">Experienced in event planning, hazard mitigation, and resource allocation.</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">Technical Communication</div>
+        <div class="skill-sub">Strong background in report writing and professional presentations.</div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-title">Microsoft Office Suite</div>
+        <div class="skill-sub">Advanced use of Word, Excel, and PowerPoint for documentation and analysis.</div>
+      </div>
     </div>
   </div>
 
-  <footer>
-    <p>&copy; 2025 Michael Brannock. All rights reserved.</p>
-  </footer>
+
 
   <script>
+    // Stars
     const starCount = 150;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -231,6 +288,39 @@
       star.style.top = Math.random() * 100 + '%';
       star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
       document.body.appendChild(star);
+    }
+
+    // Mobile dropdown behavior
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const navList = document.getElementById('primary-nav');
+
+    if (toggleBtn && navList) {
+      const closeMenu = () => {
+        navList.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      };
+
+      toggleBtn.addEventListener('click', (e) => {
+        const isOpen = navList.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', String(isOpen));
+        e.stopPropagation();
+      });
+
+      navList.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+
+      document.addEventListener('click', (e) => {
+        if (navList.classList.contains('open') &&
+            !navList.contains(e.target) &&
+            e.target !== toggleBtn) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navList.classList.contains('open')) closeMenu();
+      });
     }
   </script>
 </body>

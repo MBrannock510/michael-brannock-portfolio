@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Education | Michael Brannock</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -25,25 +21,11 @@
       padding-top: 80px;
     }
 
-    @keyframes nebulaPulse {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
-
-    @keyframes fadeInTop {
-      from { opacity: 0; transform: translateY(-20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeInCenter {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInLeft {
-      from { opacity: 0; transform: translateX(-30px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
+    @keyframes nebulaPulse { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+    @keyframes fadeInTop { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeInCenter { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
 
     .star {
       position: absolute;
@@ -55,37 +37,28 @@
       z-index: 0;
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-
+    /* Header */
     header {
       position: fixed;
-      top: 0;
-      width: 100%;
+      top: 0; left: 0; right: 0;
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(6px);
       padding: 15px 40px;
-      z-index: 10;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       animation: fadeInTop 1.2s ease-out;
     }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #ffffff;
-    }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
 
+    /* Desktop nav */
     nav ul {
       display: flex;
       list-style: none;
       gap: 20px;
     }
-
     nav ul li a {
       color: #ffffff;
       text-decoration: none;
@@ -93,12 +66,25 @@
       padding: 8px 12px;
       border-radius: 4px;
       transition: background 0.3s;
+      display: block;
     }
+    nav ul li a:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-    nav ul li a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    /* Mobile hamburger (hidden on desktop) */
+    .menu-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.8rem;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
     }
+    .menu-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
+    /* Content */
     .education-container {
       position: relative;
       z-index: 1;
@@ -137,9 +123,7 @@
       border: 3px solid rgba(255, 255, 255, 0.1);
     }
 
-    .content-text {
-      flex: 1;
-    }
+    .content-text { flex: 1; }
 
     .content-text h3 {
       font-size: 1.5rem;
@@ -177,30 +161,83 @@
       color: #f9a602;
     }
 
-    .course-column ul {
-      list-style: disc;
-      padding-left: 20px;
-    }
+    .course-column ul { list-style: disc; padding-left: 20px; }
+    .course-column li { font-size: 0.95rem; color: #cccccc; margin-bottom: 6px; }
 
-    .course-column li {
-      font-size: 0.95rem;
-      color: #cccccc;
-      margin-bottom: 6px;
-    }
+    footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #777; }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #777;
+    /* ===== MOBILE ONLY (<=768px) ===== */
+    @media (max-width: 768px) {
+      /* Hamburger visible */
+      .menu-toggle { display: inline-flex; }
+
+      /* Full-width dropdown below header */
+      #primary-nav {
+        position: fixed;
+        top: 64px;           /* just under header */
+        left: 0; right: 0;
+        width: 100vw;
+        margin: 0;
+        padding: 8px 12px 12px;
+        flex-direction: column;
+        gap: 8px;
+        background: rgba(5, 5, 10, 0.96);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        max-height: 0;       /* collapsed */
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 2000;
+      }
+      #primary-nav.open { max-height: 70vh; }
+
+      /* Ensure header spacing on mobile */
+      body { padding-top: 80px; }
+
+      /* Bigger tap targets */
+      #primary-nav li a {
+        padding: 14px 16px;
+        border-radius: 10px;
+      }
+
+      /* Stack sections image-on-top */
+      .education-container { padding: 24px 14px; }
+      h2 { font-size: 2rem; margin-bottom: 20px; }
+
+      .content-block {
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 20px;
+      }
+
+      .school-logo {
+        width: 220px;
+        height: 220px;
+        margin-bottom: 6px;
+      }
+
+      .content-text { width: 100%; }
+      .content-text h3 { font-size: 1.25rem; }
+      .content-text p { font-size: 1rem; line-height: 1.7; }
+
+      .course-columns {
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 18px;
+      }
+
+      .course-column { padding: 14px; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Michael Brannock</div>
-    <nav>
-      <ul>
+    <nav aria-label="Primary">
+      <button class="menu-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">☰</button>
+      <ul id="primary-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="education.html">Education</a></li>
@@ -216,7 +253,7 @@
     <h2>Education</h2>
 
     <div class="content-block">
-      <img src="FloridaTechImage.jpg" alt="Florida Tech" class="school-logo">
+      <img src="FloridaTechImage.jpg" alt="Florida Institute of Technology" class="school-logo" loading="lazy">
       <div class="content-text">
         <h3>Bachelor of Science in Aerospace Engineering</h3>
         <p><strong>Florida Institute of Technology</strong> – Melbourne, FL<br>
@@ -229,7 +266,7 @@
             <h4>Freshman</h4>
             <ul>
               <li>Intro to Aerospace Engineering</li>
-              <li>Calculus I & II</li>
+              <li>Calculus I &amp; II</li>
               <li>Chemistry I and Physics I</li>
             </ul>
           </div>
@@ -267,7 +304,7 @@
     </div>
 
     <div class="content-block">
-      <img src="HASH.jpg" alt="Hollidaysburg Area Senior High School" class="school-logo">
+      <img src="HASH.jpg" alt="Hollidaysburg Area Senior High School" class="school-logo" loading="lazy">
       <div class="content-text">
         <h3>Hollidaysburg Area Senior High School</h3>
         <p>Hollidaysburg, PA<br>Graduated: May 2022</p>
@@ -276,11 +313,9 @@
     </div>
   </div>
 
-  <footer>
-    <p>&copy; 2025 Michael Brannock. All rights reserved.</p>
-  </footer>
 
   <script>
+    // Stars
     const starCount = 150;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -292,6 +327,42 @@
       star.style.top = Math.random() * 100 + '%';
       star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
       document.body.appendChild(star);
+    }
+
+    // Mobile dropdown behavior
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const navList = document.getElementById('primary-nav');
+
+    if (toggleBtn && navList) {
+      const closeMenu = () => {
+        navList.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      };
+
+      toggleBtn.addEventListener('click', (e) => {
+        const isOpen = navList.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', String(isOpen));
+        e.stopPropagation();
+      });
+
+      // Close when clicking a link
+      navList.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (navList.classList.contains('open') &&
+            !navList.contains(e.target) &&
+            e.target !== toggleBtn) {
+          closeMenu();
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navList.classList.contains('open')) closeMenu();
+      });
     }
   </script>
 </body>

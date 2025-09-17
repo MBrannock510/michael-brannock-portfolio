@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Michael Brannock - Experience</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -21,29 +17,15 @@
       background-blend-mode: screen;
       background-size: 200% 200%;
       animation: nebulaPulse 20s ease-in-out infinite alternate;
-      padding-top: 80px;
+      padding-top: 80px; /* space for fixed header */
       position: relative;
     }
 
-    @keyframes nebulaPulse {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
-
-    @keyframes fadeInTop {
-      0% { opacity: 0; transform: translateY(-20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: scale(0.95); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    @keyframes fadeInLeft {
-      0% { opacity: 0; transform: translateX(-30px); }
-      100% { opacity: 1; transform: translateX(0); }
-    }
+    @keyframes nebulaPulse { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+    @keyframes fadeInTop { 0% { opacity: 0; transform: translateY(-20px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { 0% { opacity: 0; transform: scale(0.95); } 100% { opacity: 1; transform: scale(1); } }
+    @keyframes fadeInLeft { 0% { opacity: 0; transform: translateX(-30px); } 100% { opacity: 1; transform: translateX(0); } }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
 
     .star {
       position: absolute;
@@ -55,37 +37,28 @@
       z-index: 0;
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-
+    /* Header */
     header {
       position: fixed;
-      top: 0;
-      width: 100%;
+      top: 0; left: 0; right: 0;
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(6px);
       padding: 15px 40px;
-      z-index: 10;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       animation: fadeInTop 1.6s ease-out both;
     }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #ffffff;
-    }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
 
+    /* Desktop nav */
     nav ul {
       display: flex;
       list-style: none;
       gap: 20px;
     }
-
     nav ul li a {
       color: #ffffff;
       text-decoration: none;
@@ -93,12 +66,25 @@
       padding: 8px 12px;
       border-radius: 4px;
       transition: background 0.3s;
+      display: block;
     }
+    nav ul li a:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-    nav ul li a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    /* Mobile hamburger (hidden on desktop) */
+    .menu-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.8rem;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
     }
+    .menu-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
+    /* Content */
     section {
       position: relative;
       z-index: 1;
@@ -127,19 +113,10 @@
       transform: translateX(-30px);
       animation: fadeInLeft 1.2s ease-out forwards;
     }
+    .content-block:nth-of-type(2) { animation-delay: 0.6s; }
+    .content-block:nth-of-type(3) { animation-delay: 1s; }
 
-    .content-block:nth-of-type(2) {
-      animation-delay: 0.6s;
-    }
-
-    .content-block:nth-of-type(3) {
-      animation-delay: 1s;
-    }
-
-    .content-block h3 {
-      margin-bottom: 10px;
-      color: #f9a602;
-    }
+    .content-block h3 { margin-bottom: 10px; color: #f9a602; }
 
     .content-block ul {
       padding-left: 20px;
@@ -148,24 +125,58 @@
       font-size: 1.1rem;
       line-height: 1.6;
     }
+    .content-block ul li { margin-bottom: 12px; }
 
-    .content-block ul li {
-      margin-bottom: 12px;
-    }
+    footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #777; }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #777;
+    /* ===== MOBILE ONLY (<=768px) ===== */
+    @media (max-width: 768px) {
+      /* Show hamburger; convert nav to dropdown */
+      .menu-toggle { display: inline-flex; }
+
+      #primary-nav {
+        position: fixed;
+        top: 64px;        /* just under header */
+        left: 0; right: 0;
+        width: 100vw;
+        margin: 0;
+        padding: 8px 12px 12px;
+        flex-direction: column;
+        gap: 8px;
+        background: rgba(5, 5, 10, 0.96);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        max-height: 0;    /* collapsed */
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 2000;
+      }
+      #primary-nav.open { max-height: 70vh; }
+
+      /* Keep header spacing tidy */
+      body { padding-top: 80px; }
+
+      /* Bigger tap targets */
+      #primary-nav li a {
+        padding: 14px 16px;
+        border-radius: 10px;
+      }
+
+      /* Content breathing room */
+      section { padding: 24px 14px; margin: 24px auto; }
+      h2 { font-size: 2rem; margin-bottom: 20px; }
+      .content-block { padding: 20px; }
+      .content-block ul { font-size: 1rem; line-height: 1.7; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Michael Brannock</div>
-    <nav>
-      <ul>
+    <nav aria-label="Primary">
+      <button class="menu-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">☰</button>
+      <ul id="primary-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="education.html">Education</a></li>
@@ -178,23 +189,49 @@
   </header>
 
   <section id="experience">
-    <h2>Experience & Leadership</h2>
+    <h2>Experience &amp; Leadership</h2>
 
+    <!-- Co-curricular (UPDATED) -->
     <div class="content-block">
       <h3>Co-curricular Activities</h3>
       <ul>
-        <li><strong>Head of Risk Management</strong> – Pi Kappa Alpha Fraternity (Aug 2023 – Dec 2023)<br>
-            Managed large-scale events ensuring safety and risk prevention.
+        <li>
+          <strong>Bylaws Chairman</strong> – Pi Kappa Alpha Fraternity (June 2025 – Present)<br>
+          Overseer of chapter bylaws: drive revisions, ensure compliance, and facilitate governance procedures.
         </li>
-        <li><strong>Vice President of PR and Programming</strong> – Inter Fraternal Council (Aug 2023 – Dec 2024)<br>
-            Coordinated events and managed communications for 8 organizations with ~300 members.
+
+        <li>
+          <strong>Head of Risk Management</strong> – Pi Kappa Alpha Fraternity (Aug 2023 – Dec 2023)<br>
+          Managed large-scale events with proactive risk prevention and incident response planning.
+        </li>
+
+        <li>
+          <strong>Vice President of PR and Programming</strong> – Interfraternal Council (Aug 2023 – Dec 2024)<br>
+          Coordinated programming and communications for 8 organizations (~300 members).
+        </li>
+
+        <li>
+          <strong>Panther Prep Leader</strong> – Florida Institute of Technology (Fall 2024)<br>
+          Led orientation activities, mentored incoming students, and supported campus transition.
+        </li>
+
+        <li>
+          <strong>Leadership Development</strong><br>
+          <ul>
+            <li>Pi Kappa Alpha <em>Sunshine Regional Leadership Summit</em> — Spring <strong>2023</strong>, <strong>2024</strong>, <strong>2025</strong></li>
+            <li><em>Thomas C. Tillar Leadership Academy</em> — Attendee</li>
+          </ul>
         </li>
       </ul>
     </div>
 
+    <!-- Work History -->
     <div class="content-block">
       <h3>Recent Work History</h3>
       <ul>
+        <li><strong>Walmart</strong> (June 2025 – July 2025)<br>
+            Assisted in remodeling and stocking duties. 
+        </li>
         <li><strong>Brannock and Shaw Properties</strong> (May 2024 – Aug 2024)<br>
             Assisted with demolition, electrical installs, flooring, and drywall.
         </li>
@@ -210,6 +247,7 @@
   </footer>
 
   <script>
+    // Stars
     const starCount = 150;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -221,6 +259,42 @@
       star.style.top = Math.random() * 100 + '%';
       star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
       document.body.appendChild(star);
+    }
+
+    // Mobile dropdown behavior (same as other pages)
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const navList = document.getElementById('primary-nav');
+
+    if (toggleBtn && navList) {
+      const closeMenu = () => {
+        navList.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      };
+
+      toggleBtn.addEventListener('click', (e) => {
+        const isOpen = navList.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', String(isOpen));
+        e.stopPropagation();
+      });
+
+      // Close when clicking a link
+      navList.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (navList.classList.contains('open') &&
+            !navList.contains(e.target) &&
+            e.target !== toggleBtn) {
+          closeMenu();
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navList.classList.contains('open')) closeMenu();
+      });
     }
   </script>
 </body>

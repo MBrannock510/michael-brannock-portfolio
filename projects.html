@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Michael Brannock - Portfolio</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -21,14 +17,15 @@
       background-blend-mode: screen;
       background-size: 200% 200%;
       animation: nebulaPulse 20s ease-in-out infinite alternate;
-      padding-top: 80px;
+      padding-top: 80px; /* room for fixed header */
       position: relative;
     }
 
-    @keyframes nebulaPulse {
-      0% { background-position: 0% 0%; }
-      100% { background-position: 100% 100%; }
-    }
+    @keyframes nebulaPulse { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+    @keyframes slideDownFade { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeLeft { to { transform: translateX(0); opacity: 1; } }
 
     .star {
       position: absolute;
@@ -40,48 +37,28 @@
       z-index: 0;
     }
 
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
-
+    /* Header */
     header {
       position: fixed;
-      top: 0;
-      width: 100%;
+      top: 0; left: 0; right: 0;
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(6px);
       padding: 15px 40px;
-      z-index: 10;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       animation: slideDownFade 1s ease forwards;
     }
 
-    @keyframes slideDownFade {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #ffffff;
-    }
-
+    /* Desktop nav */
     nav ul {
       display: flex;
       list-style: none;
       gap: 20px;
     }
-
     nav ul li a {
       color: #ffffff;
       text-decoration: none;
@@ -89,12 +66,25 @@
       padding: 8px 12px;
       border-radius: 4px;
       transition: background 0.3s;
+      display: block;
     }
+    nav ul li a:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-    nav ul li a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    /* Mobile hamburger (hidden on desktop) */
+    .menu-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.8rem;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
     }
+    .menu-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
+    /* Content */
     .portfolio-container {
       position: relative;
       z-index: 1;
@@ -112,11 +102,6 @@
       animation: fadeIn 1s ease-out forwards;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
     .project-block {
       background: rgba(255, 255, 255, 0.05);
       backdrop-filter: blur(6px);
@@ -128,17 +113,9 @@
       opacity: 0;
       animation: fadeLeft 0.8s ease-out forwards;
     }
-
     .project-block:nth-child(2) { animation-delay: 0.3s; }
     .project-block:nth-child(3) { animation-delay: 0.6s; }
     .project-block:nth-child(4) { animation-delay: 0.9s; }
-
-    @keyframes fadeLeft {
-      to {
-        transform: translateX(0);
-        opacity: 1;
-      }
-    }
 
     .project-toggle {
       width: 100%;
@@ -155,16 +132,8 @@
       gap: 6px;
     }
 
-    .project-title {
-      font-size: 1.4rem;
-      font-weight: bold;
-      color: #f9a602;
-    }
-
-    .project-subtitle {
-      font-size: 1rem;
-      color: #ccc;
-    }
+    .project-title { font-size: 1.4rem; font-weight: bold; color: #f9a602; }
+    .project-subtitle { font-size: 1rem; color: #ccc; }
 
     .triangle {
       position: absolute;
@@ -175,10 +144,7 @@
       border-top: 14px solid #f9a602;
       transition: transform 0.3s ease;
     }
-
-    .expanded .triangle {
-      transform: rotate(180deg);
-    }
+    .expanded .triangle { transform: rotate(180deg); }
 
     .project-content {
       max-height: 0;
@@ -187,13 +153,11 @@
       opacity: 0;
       transition: all 0.4s ease;
     }
-
     .project-content.expanded {
       max-height: 1000px;
       padding: 20px;
       opacity: 1;
     }
-
     .project-content ul {
       padding-left: 20px;
       list-style-type: disc;
@@ -202,19 +166,61 @@
       color: #ddd;
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-      color: #777;
+    footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #777; }
+
+    /* ===== MOBILE ONLY (<=768px) ===== */
+    @media (max-width: 768px) {
+      /* Hamburger visible */
+      .menu-toggle { display: inline-flex; }
+
+      /* Full-width dropdown below header */
+      #primary-nav {
+        position: fixed;
+        top: 64px;           /* just under header */
+        left: 0; right: 0;
+        width: 100vw;
+        margin: 0;
+        padding: 8px 12px 12px;
+        flex-direction: column;
+        gap: 8px;
+        background: rgba(5, 5, 10, 0.96);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        max-height: 0;       /* collapsed */
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 2000;
+      }
+      #primary-nav.open { max-height: 70vh; }
+
+      /* Ensure header spacing on mobile */
+      body { padding-top: 80px; }
+
+      /* Bigger tap targets */
+      #primary-nav li a {
+        padding: 14px 16px;
+        border-radius: 10px;
+      }
+
+      /* Content spacing for small screens */
+      .portfolio-container { padding: 24px 14px; margin: 24px auto; }
+      h2 { font-size: 2rem; margin-bottom: 20px; }
+
+      .project-toggle { padding: 18px; }
+      .project-title { font-size: 1.25rem; }
+      .project-subtitle { font-size: 0.95rem; }
+      .triangle { top: 18px; right: 14px; }
+      .project-content ul { font-size: 1rem; line-height: 1.7; }
     }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Michael Brannock</div>
-    <nav>
-      <ul>
+    <nav aria-label="Primary">
+      <button class="menu-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">☰</button>
+      <ul id="primary-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="education.html">Education</a></li>
@@ -262,26 +268,25 @@
     <div class="project-block">
       <button class="project-toggle">
         <div class="project-title">Military Transport Concept Design</div>
-        <div class="project-subtitle">Dual-role aircraft design using C-17 & AC-130 profiles</div>
+        <div class="project-subtitle">Dual-role aircraft design using C-17 &amp; AC-130 profiles</div>
         <div class="triangle"></div>
       </button>
       <div class="project-content">
         <ul>
-          <li><strong>Weight & Payload:</strong> 650,000 lb takeoff weight with 184,000 lb payload.</li>
+          <li><strong>Weight &amp; Payload:</strong> 650,000 lb takeoff weight with 184,000 lb payload.</li>
           <li><strong>Propulsion:</strong> Two 130,000 lb-thrust engines, T/W = 0.4.</li>
           <li><strong>Interior:</strong> Living quarters, command center, cargo bays.</li>
-          <li><strong>Aerodynamics:</strong> 335 ft span, 6250 ft² wing area, NACA 0012 & 0011 profiles.</li>
-          <li><strong>Efficiency:</strong> Mission blend of combat support & logistics.</li>
+          <li><strong>Aerodynamics:</strong> 335 ft span, 6250 ft² wing area, NACA 0012 &amp; 0011 profiles.</li>
+          <li><strong>Efficiency:</strong> Mission blend of combat support &amp; logistics.</li>
         </ul>
       </div>
     </div>
   </div>
 
-  <footer>
-    <p>&copy; 2025 Michael Brannock. All rights reserved.</p>
-  </footer>
+
 
   <script>
+    // Accordion toggles
     const toggles = document.querySelectorAll('.project-toggle');
     toggles.forEach(toggle => {
       toggle.addEventListener('click', () => {
@@ -291,6 +296,7 @@
       });
     });
 
+    // Stars
     const starCount = 150;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -302,6 +308,42 @@
       star.style.top = Math.random() * 100 + '%';
       star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
       document.body.appendChild(star);
+    }
+
+    // Mobile dropdown behavior (same pattern as other pages)
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const navList = document.getElementById('primary-nav');
+
+    if (toggleBtn && navList) {
+      const closeMenu = () => {
+        navList.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      };
+
+      toggleBtn.addEventListener('click', (e) => {
+        const isOpen = navList.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', String(isOpen));
+        e.stopPropagation();
+      });
+
+      // Close when clicking a link
+      navList.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (navList.classList.contains('open') &&
+            !navList.contains(e.target) &&
+            e.target !== toggleBtn) {
+          closeMenu();
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navList.classList.contains('open')) closeMenu();
+      });
     }
   </script>
 </body>

@@ -5,11 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Me | Michael Brannock</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
@@ -22,7 +18,7 @@
       background-size: 200% 200%;
       animation: nebulaPulse 20s ease-in-out infinite alternate;
       position: relative;
-      padding-top: 80px;
+      padding-top: 80px; /* space for fixed header */
     }
 
     @keyframes nebulaPulse {
@@ -39,49 +35,33 @@
       animation-delay: var(--twinkle-delay);
       z-index: 0;
     }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0; }
-      50% { opacity: 1; }
-    }
+    @keyframes twinkle { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
 
     header {
       position: fixed;
-      top: 0;
-      width: 100%;
+      top: 0; left: 0; right: 0;
       background: rgba(255, 255, 255, 0.04);
       backdrop-filter: blur(6px);
       padding: 15px 40px;
-      z-index: 10;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
       animation: slideDownFade 1s ease forwards;
     }
-
     @keyframes slideDownFade {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #ffffff;
-    }
+    .logo { font-size: 1.5rem; font-weight: bold; color: #ffffff; }
 
+    /* Desktop nav */
     nav ul {
       display: flex;
       list-style: none;
       gap: 20px;
     }
-
     nav ul li a {
       color: #ffffff;
       text-decoration: none;
@@ -89,12 +69,25 @@
       padding: 8px 12px;
       border-radius: 4px;
       transition: background 0.3s;
+      display: block;
     }
+    nav ul li a:hover { background-color: rgba(255, 255, 255, 0.1); }
 
-    nav ul li a:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+    /* Mobile hamburger (hidden on desktop) */
+    .menu-toggle {
+      display: none;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 1.8rem;
+      line-height: 1;
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
     }
+    .menu-toggle:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
 
+    /* About box */
     .about-container {
       position: relative;
       z-index: 1;
@@ -115,11 +108,7 @@
       opacity: 0;
       animation: fadeIn 1s ease forwards;
     }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
     .about-container p {
       font-size: 1.1rem;
@@ -130,20 +119,13 @@
       transform: translateX(-40px);
       animation: fadeLeft 0.8s ease forwards;
     }
-
     .about-container p:nth-of-type(1) { animation-delay: 0.2s; }
     .about-container p:nth-of-type(2) { animation-delay: 0.4s; }
     .about-container p:nth-of-type(3) { animation-delay: 0.6s; }
     .about-container p:nth-of-type(4) { animation-delay: 0.8s; }
     .about-container p:nth-of-type(5) { animation-delay: 1.0s; }
-    .about-container .signature    { animation-delay: 1.2s; }
-
-    @keyframes fadeLeft {
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
+    .about-container .signature { animation-delay: 1.2s; }
+    @keyframes fadeLeft { to { opacity: 1; transform: translateX(0); } }
 
     .signature {
       text-align: right;
@@ -158,13 +140,54 @@
       font-size: 0.9rem;
       color: #777;
     }
+
+    /* ===== MOBILE ONLY FIXES ===== */
+    @media (max-width: 768px) {
+      .menu-toggle { display: inline-flex; }
+
+      /* Make dropdown full-width and on top of content */
+      #primary-nav {
+        position: fixed;           /* key change */
+        top: 64px;                 /* sits just under the header */
+        left: 0;
+        right: 0;
+        width: 100vw;
+        margin: 0;
+        padding: 8px 12px 12px;
+        flex-direction: column;
+        gap: 8px;
+        background: rgba(5, 5, 10, 0.96);
+        backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+        max-height: 0;             /* collapsed by default */
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        z-index: 2000;             /* above all page content */
+      }
+      #primary-nav.open { max-height: 70vh; } /* reveal */
+
+      /* Keep header spacing tidy on mobile */
+      body { padding-top: 80px; }
+
+      /* Bigger tap targets */
+      #primary-nav li a {
+        padding: 14px 16px;
+        border-radius: 10px;
+      }
+
+      /* Prevent the inline desktop layout from interfering */
+      nav ul { display: flex; }
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="logo">Michael Brannock</div>
-    <nav>
-      <ul>
+
+    <nav aria-label="Primary">
+      <button class="menu-toggle" aria-label="Menu" aria-controls="primary-nav" aria-expanded="false">☰</button>
+      <ul id="primary-nav">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="education.html">Education</a></li>
@@ -193,16 +216,11 @@
     <p>
       Thank you for taking the time to learn more about me. I look forward to connecting with you and exploring how my background, skills, and passion can bring value to your team.
     </p>
-    <p class="signature">
-      – Michael Brannock
-    </p>
+    <p class="signature">– Michael Brannock</p>
   </div>
 
-  <footer>
-    <p>&copy; 2025 Michael Brannock. All rights reserved.</p>
-  </footer>
-
   <script>
+    // Stars
     const starCount = 150;
     for (let i = 0; i < starCount; i++) {
       const star = document.createElement('div');
@@ -214,6 +232,42 @@
       star.style.top = Math.random() * 100 + '%';
       star.style.setProperty('--twinkle-delay', `${Math.random() * 2}s`);
       document.body.appendChild(star);
+    }
+
+    // Mobile dropdown behavior
+    const toggleBtn = document.querySelector('.menu-toggle');
+    const navList = document.getElementById('primary-nav');
+
+    if (toggleBtn && navList) {
+      const closeMenu = () => {
+        navList.classList.remove('open');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      };
+
+      toggleBtn.addEventListener('click', (e) => {
+        const isOpen = navList.classList.toggle('open');
+        toggleBtn.setAttribute('aria-expanded', String(isOpen));
+        e.stopPropagation();
+      });
+
+      // Close when clicking a link
+      navList.addEventListener('click', (e) => {
+        if (e.target.tagName === 'A') closeMenu();
+      });
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        if (navList.classList.contains('open') &&
+            !navList.contains(e.target) &&
+            e.target !== toggleBtn) {
+          closeMenu();
+        }
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navList.classList.contains('open')) closeMenu();
+      });
     }
   </script>
 </body>
